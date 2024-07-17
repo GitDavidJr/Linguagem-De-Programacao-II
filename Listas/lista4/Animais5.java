@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Animais5{
 
-    final static ArrayList<String> listaMenor = new ArrayList(10);
-    final static ArrayList<String> listaMaior = new ArrayList(10);
+    final static ArrayList<String> listaMenor = new ArrayList<String>(10);
+    final static ArrayList<String> listaMaior = new ArrayList<String>(10);
     
     public static void main(String[] args) {
         
@@ -12,8 +12,6 @@ public class Animais5{
         redistribuir();
         System.out.println("Lista menor: " + listaMenor);
         System.out.println("Lista maior: " + listaMaior);
-
-        
     }
 
     public static void inserirAnimais(){
