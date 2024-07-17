@@ -17,11 +17,37 @@ public class Animais5{
     public static void inserirAnimais(){
 
         Scanner s = new Scanner(System.in);
-     
+    
+        
         for(int i = 0; i < 10; i++){
-            System.out.print("Digite um nome do " + (i+1) + "° animal: ");
-            String animal = s.nextLine();
-            listaMenor.add(animal);
+
+            String entrada = "";
+        
+            boolean completo = false;
+
+            while (!completo) {
+                try{
+                    System.out.print("Digite um nome do " + (i+1) + "° animal: ");
+                    entrada = s.nextLine();
+
+                    for(int f = 0; f < i; f++){
+                        if (listaMenor.get(f).equalsIgnoreCase(entrada)) {
+                            throw new Exception("Animal ja inserido!");
+                        }
+                    }
+
+                    if(entrada == ""){
+                        throw new Exception("Nome Vazio");
+                    }
+                    
+                    completo = true;
+                } catch(Exception e){
+                    System.out.println("Erro: " + e.getMessage());
+                }
+
+            }
+
+            listaMenor.add(entrada);
 
         }
 
