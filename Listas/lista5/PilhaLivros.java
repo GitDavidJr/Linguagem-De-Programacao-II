@@ -1,6 +1,8 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.InputMismatchException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 
@@ -13,15 +15,31 @@ public class PilhaLivros {
         int option = 0;
 
         do{
-           options();
-           option = s.nextInt();
-           s.nextLine();
-           System.out.println();
 
-           switch (option) {
-            case 1: inserir(); break;
-            case 2: remover(); break;
-            case 3: printPilha(); break;
+            boolean valido = true;
+
+            while(valido){
+
+                options();
+                
+                try{
+                option = s.nextInt();
+                valido = false;
+                }catch(InputMismatchException e){
+                    System.out.println("Opção invalida!");
+                }
+
+                s.nextLine();
+
+                System.out.println();
+            }
+
+            switch (option) {
+                case 1: inserir(); break;
+                case 2: remover(); break;
+                case 3: printPilha(); break;
+                case 4: System.out.println("Programa encerrado!");
+                default: System.out.println("Opção invalida!"); break;
            }
            
 
@@ -42,22 +60,31 @@ public class PilhaLivros {
     }
 
     public static void inserir(){
-        String titulo; // título
-        String autores; // lista de autores separados por vírgula
-        int edicao; // número de edição (inteiro igual ou superior a 1)
-        int ano; // ano de edição (inteiro positivo de 4 dígitos)
+        String titulo = ""; // título
+        String autores = ""; // lista de autores separados por vírgula
+        int edicao = 0; // número de edição (inteiro igual ou superior a 1)
+        int ano = 0; // ano de edição (inteiro positivo de 4 dígitos)
         
-        System.out.println("      | INSERIR LIVRO |     ");
-        System.out.println("****************************");
-        System.out.print("* Titulo: ");
-        titulo = s.nextLine();
-        System.out.print("* Autores: ");
-        autores = s.nextLine();
-        System.out.print("* Edição: ");
-        edicao = s.nextInt();
-        System.out.print("* Ano: ");
-        ano = s.nextInt();
-        s.nextLine();
+        boolean valido = true;
+
+        while (valido) {
+            try{
+                System.out.println("      | INSERIR LIVRO |     ");
+                System.out.println("****************************");
+                System.out.print("* Titulo: ");
+                titulo = s.nextLine();
+                System.out.print("* Autores: ");
+                autores = s.nextLine();
+                System.out.print("* Edição: ");
+                edicao = s.nextInt();
+                System.out.print("* Ano: ");
+                ano = s.nextInt();
+                s.nextLine();
+                valido = false;
+            }catch(InputMismatchException e){
+                System.out.println("Digite um valor valido");
+            }
+        }
 
         Iterator<Livro> it = livros.iterator();
 
@@ -68,29 +95,41 @@ public class PilhaLivros {
         }
 
         
-        if(qnt == 6){
+        if(qnt == 5){
             Deque<Livro> pilhaAux = new ArrayDeque<Livro>();
-            pilhaAux.add(livros.pop());
-            pilhaAux.add(livros.pop());
-            livros.pop();
-            livros.add(pilhaAux.pop());
-            livros.add(pilhaAux.pop());
+            pilhaAux.addLast(livros.removeLast());
+            pilhaAux.addLast(livros.removeLast());
+            livros.removeLast();
+            livros.addLast(pilhaAux.pop());
+            livros.addLast(pilhaAux.pop());
         }
 
         
-        livros.add(new Livro(titulo, autores, edicao, ano));
+        livros.addLast(new Livro(titulo, autores, edicao, ano));
     }
 
     public static void remover(){
 
-        if(!livros.isEmpty()){
-            System.out.println("Livro " + livros.pop() + " removido!");
-        } else{
+        try{
+            System.out.println(livros.removeLast() + " removido!");
+        } catch(NoSuchElementException e){
             System.out.println("Pilha vazia!");
         }
     }
 
     public static void printPilha(){
-        System.out.println(livros);
+
+        Iterator<Livro> it = livros.iterator();
+
+        System.out.println("                         | MINHA PILHA |");
+
+        int cont = 0;
+
+        System.out.println("***************************************************************");
+        while (it.hasNext()) {
+            cont++;
+            System.out.println("* " + cont+"° " + it.next() + " *"); 
+        }
+        System.out.println("***************************************************************");
     }
 }
