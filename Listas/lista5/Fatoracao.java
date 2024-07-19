@@ -19,13 +19,12 @@ public class Fatoracao {
 
     public static void fatoracao(int numero){
         
-        int numAux = numero;
         int divisor = 2;
 
-        while (numAux != 1) {
-            while ((numAux%divisor) == 0) {
+        while (numero != 1) {
+            while ((numero%divisor) == 0) {
                 fatoracaoPrima.add(divisor);
-                numAux = numAux/divisor;
+                numero = numero/divisor;
             }
             divisor++;
         }
