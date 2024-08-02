@@ -14,7 +14,8 @@ public class RegistroQuadroFuncionarios {
         
         try {
         
-            PrintWriter fluxo = new PrintWriter("quadro-funcionarios.txt");
+            FileWriter caminho = new FileWriter("quadro-funcionarios.txt", true); 
+            PrintWriter fluxo = new PrintWriter(caminho);
 
             List<Funcionario> quadroFunc = new ArrayList<Funcionario>();
 

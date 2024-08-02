@@ -1,12 +1,13 @@
 package Aulas.aula13;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
-public class Funcionario {
+public class Funcionario implements Serializable{
    
-   private String nome;
-   private double salario;
-   private GregorianCalendar dataAdmissao;
+   protected String nome;
+   protected double salario;
+   protected GregorianCalendar dataAdmissao;
    public Funcionario(String n, double s, int anoAdmissao, int mesAdmissao, int diaAdmissao) {
       nome = n;
       salario = s;
