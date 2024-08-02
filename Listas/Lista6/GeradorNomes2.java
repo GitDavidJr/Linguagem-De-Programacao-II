@@ -1,8 +1,8 @@
 package Listas.Lista6;
 
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -15,18 +15,16 @@ public class GeradorNomes2 {
     
     public static void main(String[] args) {
 
-        String[] pessoas = new String[10];
+        Pessoa[] pessoas = new Pessoa[10];
 
         for(int i = 0; i < 10;i++){
-            pessoas[i] = novaPessoa();
+            pessoas[i] = new Pessoa(randomizarArray(ler("nomes.txt")), randomizarArray(ler("sobrenomes.txt")), idadeAleatoria());
         }
 
         sort(pessoas);
 
 
-        escrever(new ArrayList<>(Arrays.asList(pessoas)));
-
-
+        escrever(new ArrayList<Pessoa>(Arrays.asList(pessoas)));
 
     }
 
@@ -70,19 +68,16 @@ public class GeradorNomes2 {
         return gerador.nextInt(100);
     }
 
-    public static void escrever(ArrayList<String> lista){
+    public static void escrever(ArrayList<Pessoa> lista){
 
         try {
             
-            PrintWriter fluxo = new PrintWriter(new FileWriter("nomesCompletos.txt"));
+            ObjectOutputStream fluxo = new ObjectOutputStream(new FileOutputStream("pessoas.obj"));
 
-            Iterator<String> it = lista.iterator();
-
-            while (it.hasNext()) {
-                fluxo.println(it.next());
-            }
-
+            fluxo.writeObject(lista);
+            
             fluxo.close();
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,11 +85,11 @@ public class GeradorNomes2 {
 
     }
 
-    public static void sort(String[] pessoas){
+    public static void sort(Pessoa[] pessoas){
 
         // ordenação por inserção dos nomes
         for (int i = 1; i < pessoas.length; i++) {
-            String pessoaTemp = pessoas[i];         // enésimo nome
+            Pessoa pessoaTemp = pessoas[i];         // enésimo nome
 
             int j = i - 1;                      // índice de nome anterior ao enésimo nome em comparação
 
@@ -110,7 +105,4 @@ public class GeradorNomes2 {
 
     }
 
-    public static String novaPessoa(){
-        return (randomizarArray(ler("nomes.txt")) + " " + randomizarArray(ler("sobrenomes.txt")) + "," + idadeAleatoria());
-    }
 }
