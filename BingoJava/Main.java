@@ -1,4 +1,11 @@
-
+/*
+ * Alunos:
+ * David Inácio
+ * João Vitor Lemos
+ * Julia
+ * Rebeca
+ * Luisa
+ */
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,7 +23,7 @@ public class Main {
     public static Scanner scanner = new Scanner(System.in); 
     public static void main(String[] args) {
        
-        int op = 0;
+        int op;
 
         do {
             menu();
@@ -67,6 +74,7 @@ public class Main {
                     System.out.println();
                     System.out.println("Numeros sorteados: ");
                     bingo.consultarNumSorteados(sorteio);
+                    break;
 
                 case 0:
                     System.out.println("Saindo...");
@@ -84,7 +92,7 @@ public class Main {
     }
 
     public static void menu() {
-        System.out.println("Escolha uma opção:");
+        System.out.println("-------------------- MENU --------------------");
         System.out.println("1. Criar nova cartela");
         System.out.println("2. Sortear um novo número");
         System.out.println("3. Listar jogadores e suas cartelas");
@@ -95,6 +103,8 @@ public class Main {
         System.out.println("8. Excluir cartela");
         System.out.println("9. Continuar jogo anterior");
         System.out.println("0. sair");
+        System.out.println("----------------------------------------------");
+        System.out.print("Escolha uma opção: ");
     }
 
     public static void exportarCartelas(){
